@@ -8,6 +8,7 @@ Un'aplicació web interactiva, moderna i adaptativa dissenyada per estudiar i pr
 ![License](https://img.shields.io/badge/License-MIT-green.style=for-the-badge)
 
 ---
+Accedeix a la web app: https://jlluch4codina.github.io/vocabulariangles1/
 
 ## 🚀 Característiques principals
 
