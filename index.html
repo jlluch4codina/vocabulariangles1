@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>English Practice - Jobs, Verbs & Used To</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts: Inter & Outfit -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f0fdf4;
+    }
+    h1, h2, h3, .font-heading {
+      font-family: 'Outfit', sans-serif;
+    }
+    /* Perspective for 3D Flashcard Flip */
+    .perspective-1000 {
+      perspective: 1000px;
+    }
+    .transform-style-3d {
+      transform-style: preserve-3d;
+    }
+    .backface-hidden {
+      backface-visibility: hidden;
+    }
+    .rotate-y-180 {
+      transform: rotateY(180deg);
+    }
+    /* Custom Scrollbars */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+  </style>
+</head>
+<body class="text-slate-800 min-h-screen flex flex-col justify-between selection:bg-emerald-200">
+
+  <!-- APP CONTAINER -->
+  <div id="app" class="flex-1 flex flex-col max-w-5xl w-full mx-auto p-4 sm:p-6 md:p-8">
+
+    <!-- HEADER / NAVIGATION TOP BAR -->
+    <header class="bg-white rounded-3xl p-4 sm:p-5 shadow-sm border border-emerald-100 mb-6 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-11 h-11 bg-emerald-500 rounded-2xl flex items-center justify-center text-white shadow-md shadow-emerald-200">
+          <i class="fa-solid fa-graduation-cap text-xl"></i>
+        </div>
+        <div>
+          <h1 class="font-extrabold text-xl sm:text-2xl text-slate-800 tracking-tight leading-none">English Master</h1>
+          <p class="text-xs sm:text-sm text-slate-500 font-medium mt-0.5">Jobs • Verbs • Used To</p>
+        </div>
+      </div>
+
+      <!-- STATS BADGES -->
+      <div class="flex items-center gap-3 ml-auto sm:ml-0">
+        <!-- Streak -->
+        <div class="flex items-center gap-1.5 bg-amber-50 text-amber-700 px-3 py-1.5 rounded-full border border-amber-200 text-xs sm:text-sm font-bold shadow-sm" title="Streak count">
+          <i class="fa-solid fa-fire text-amber-500 animate-bounce"></i>
+          <span id="streak-count">0</span>
+        </div>
+        <!-- XP -->
+        <div class="flex items-center gap-1.5 bg-emerald-50 text-emerald-700 px-3.5 py-1.5 rounded-full border border-emerald-200 text-xs sm:text-sm font-bold shadow-sm" title="Experience Points">
+          <i class="fa-solid fa-bolt text-emerald-500"></i>
+          <span id="score-count">0</span> XP
+        </div>
+      </div>
+    </header>
+
+    <!-- NAVIGATION TABS -->
+    <nav class="grid grid-cols-3 sm:grid-cols-6 gap-2 mb-6">
+      <button onclick="switchTab('flashcards')" id="tab-flashcards" class="tab-btn active flex items-center justify-center gap-1.5 py-3 px-2 sm:px-3 rounded-2xl font-bold text-xs sm:text-sm transition-all duration-200 bg-emerald-600 text-white shadow-lg shadow-emerald-200">
+        <i class="fa-solid fa-layer-group"></i> Flashcards
+      </button>
+      <button onclick="switchTab('quiz')" id="tab-quiz" class="tab-btn flex items-center justify-center gap-1.5 py-3 px-2 sm:px-3 rounded-2xl font-bold text-xs sm:text-sm transition-all duration-200 bg-white text-slate-600 hover:bg-slate-50 border border-slate-200">
+        <i class="fa-solid fa-circle-question"></i> Quiz Mode
+      </button>
+      <button onclick="switchTab('blanks')" id="tab-blanks" class="tab-btn flex items-center justify-center gap-1.5 py-3 px-2 sm:px-3 rounded-2xl font-bold text-xs sm:text-sm transition-all duration-200 bg-white text-slate-600 hover:bg-slate-50 border border-slate-200">
+        <i class="fa-solid fa-pen-to-square"></i> Used To
+      </button>
+      <button onclick="switchTab('matching')" id="tab-matching" class="tab-btn flex items-center justify-center gap-1.5 py-3 px-2 sm:px-3 rounded-2xl font-bold text-xs sm:text-sm transition-all duration-200 bg-white text-slate-600 hover:bg-slate-50 border border-slate-200">
+        <i class="fa-solid fa-puzzle-piece"></i> Matching
+      </button>
+      <button onclick="switchTab('descriptions')" id="tab-descriptions" class="tab-btn flex items-center justify-center gap-1.5 py-3 px-2 sm:px-3 rounded-2xl font-bold text-xs sm:text-sm transition-all duration-200 bg-white text-slate-600 hover:bg-slate-50 border border-slate-200">
+        <i class="fa-solid fa-book-open"></i> Descriptions
+      </button>
+      <button onclick="switchTab('sentence-vocab')" id="tab-sentence-vocab" class="tab-btn flex items-center justify-center gap-1.5 py-3 px-2 sm:px-3 rounded-2xl font-bold text-xs sm:text-sm transition-all duration-200 bg-white text-slate-600 hover:bg-slate-50 border border-slate-200">
+        <i class="fa-solid fa-align-left"></i> Sentences
+      </button>
+    </nav>
+
+    <!-- CONTENT SECTIONS -->
+    <main class="flex-1 flex flex-col">
+
+      <!-- MODE 1: FLASHCARDS -->
+      <section id="mode-flashcards" class="mode-content flex-1 flex flex-col">
+        <!-- Controls Bar -->
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 mb-6 flex flex-wrap gap-3 items-center justify-between shadow-sm">
+          <div class="flex items-center gap-2">
+            <label for="category-filter" class="text-xs font-bold uppercase text-slate-400">Category:</label>
+            <select id="category-filter" onchange="filterFlashcards()" class="bg-slate-50 border border-slate-300 text-slate-700 text-sm font-semibold rounded-xl px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+              <option value="all">All Categories</option>
+              <option value="jobs">Jobs</option>
+              <option value="verbs">Verbs</option>
+              <option value="grammar">Grammar (Used To)</option>
+            </select>
+          </div>
+          <div class="text-xs font-bold text-slate-400">
+            Card <span id="card-index" class="text-emerald-600">1</span> of <span id="card-total">0</span>
+          </div>
+        </div>
+
+        <!-- 3D Card Display -->
+        <div class="flex-1 flex flex-col items-center justify-center py-4">
+          <div id="flashcard" onclick="flipCard()" class="w-full max-w-md h-72 sm:h-80 perspective-1000 cursor-pointer group">
+            <div id="flashcard-inner" class="relative w-full h-full duration-500 transform-style-3d rounded-3xl shadow-xl">
+              
+              <!-- Front (Anglès) -->
+              <div class="absolute w-full h-full backface-hidden bg-white border-2 border-emerald-400 rounded-3xl p-6 flex flex-col items-center justify-between text-center select-none">
+                <div class="w-full flex justify-between items-center text-xs font-bold uppercase tracking-wider text-emerald-600">
+                  <span id="card-category-tag">Jobs</span>
+                  <i class="fa-solid fa-rotate text-slate-300 group-hover:text-emerald-500 transition-colors"></i>
+                </div>
+                <div class="my-auto">
+                  <h2 id="card-english" class="text-2xl sm:text-3xl font-extrabold text-slate-800 mb-2">Firefighter</h2>
+                  <p class="text-xs text-slate-400 font-medium">(Click card to flip)</p>
+                </div>
+                <button onclick="event.stopPropagation(); speakWord();" class="w-10 h-10 rounded-full bg-emerald-50 text-emerald-600 hover:bg-emerald-500 hover:text-white transition-all flex items-center justify-center shadow-sm" title="Listen to pronunciation">
+                  <i class="fa-solid fa-volume-high"></i>
+                </button>
+              </div>
+
+              <!-- Back (Català / Explicació) -->
+              <div class="absolute w-full h-full backface-hidden rotate-y-180 bg-gradient-to-br from-emerald-600 to-teal-700 text-white rounded-3xl p-6 flex flex-col items-center justify-between text-center select-none shadow-xl">
+                <div class="w-full flex justify-between items-center text-xs font-bold uppercase tracking-wider text-emerald-200">
+                  <span>Translation / Rule</span>
+                  <i class="fa-solid fa-rotate text-emerald-300"></i>
+                </div>
+                <div class="my-auto">
+                  <h2 id="card-catalan" class="text-2xl sm:text-3xl font-extrabold mb-2">Bomber / Bomberes</h2>
+                  <p id="card-extra" class="text-xs text-emerald-100 font-medium"></p>
+                </div>
+                <button onclick="event.stopPropagation(); speakWord(true);" class="w-10 h-10 rounded-full bg-white/20 text-white hover:bg-white/30 transition-all flex items-center justify-center" title="Listen audio">
+                  <i class="fa-solid fa-volume-high"></i>
+                </button>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Controls de navegació -->
+          <div class="flex items-center gap-4 mt-8">
+            <button onclick="prevCard()" class="w-12 h-12 rounded-2xl bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 flex items-center justify-center shadow-sm active:scale-95 transition-all">
+              <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <button onclick="nextCard()" class="w-12 h-12 rounded-2xl bg-emerald-600 text-white hover:bg-emerald-700 flex items-center justify-center shadow-md shadow-emerald-200 active:scale-95 transition-all">
+              <i class="fa-solid fa-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- MODE 5: SENTENCE VOCABULARY QUIZ (NEW) -->
+      <section id="mode-sentence-vocab" class="mode-content hidden flex-1 flex flex-col max-w-xl mx-auto w-full">
+        <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-md flex-1 flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-center mb-4">
+              <span id="sent-category-tag" class="px-3 py-1 bg-teal-100 text-teal-700 text-xs font-bold rounded-full uppercase tracking-wider">Sentence Practice</span>
+              <span id="sent-progress-text" class="text-xs font-bold text-slate-400">1 / 10</span>
+            </div>
+
+            <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Choose the best word to complete the sentence:</h3>
+            <p id="sent-sentence" class="text-xl sm:text-2xl font-extrabold text-slate-800 leading-relaxed mb-4">
+              The <span class="text-teal-600 border-b-2 border-teal-500 px-2">_______</span> put out the fire in the building.
+            </p>
+
+            <p id="sent-translation" class="text-xs text-slate-500 italic mb-6">
+              "El/La bomber/a va apagar el foc de l'edifici."
+            </p>
+
+            <!-- 3 Multiple Choice Options -->
+            <div id="sent-options" class="grid grid-cols-1 gap-3 mb-4">
+              <!-- Options injected dynamically -->
+            </div>
+          </div>
+
+          <!-- Feedback & Next Button -->
+          <div>
+            <div id="sent-feedback" class="hidden rounded-2xl p-4 text-center font-bold text-sm mb-4"></div>
+            <button id="sent-next-btn" onclick="nextSentQuestion()" class="hidden w-full py-3.5 bg-teal-600 text-white rounded-2xl font-bold hover:bg-teal-700 transition-all shadow-md shadow-teal-200">
+              Next Sentence <i class="fa-solid fa-arrow-right ml-2"></i>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- MODE 2: QUIZ MULTIPLE CHOICE -->
+      <section id="mode-quiz" class="mode-content hidden flex-1 flex flex-col max-w-xl mx-auto w-full">
+        <!-- Progress Bar -->
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 mb-6 shadow-sm">
+          <div class="flex justify-between items-center mb-2 text-xs font-bold text-slate-400">
+            <span>QUIZ PROGRESS</span>
+            <span id="quiz-progress-text">1 / 10</span>
+          </div>
+          <div class="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden">
+            <div id="quiz-progress-bar" class="h-full bg-emerald-500 rounded-full transition-all duration-300" style="width: 10%;"></div>
+          </div>
+        </div>
+
+        <!-- Question Card -->
+        <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-md flex-1 flex flex-col justify-between">
+          <div>
+            <span id="quiz-category-tag" class="px-3 py-1 bg-emerald-100 text-emerald-700 text-xs font-bold rounded-full uppercase tracking-wider">Vocabulary</span>
+            <h2 id="quiz-question" class="text-xl sm:text-2xl font-extrabold text-slate-800 mt-4 mb-6">Which option means "persona de negocis"?</h2>
+          </div>
+
+          <!-- Options Grid -->
+          <div id="quiz-options" class="grid grid-cols-1 gap-3 mb-6">
+            <!-- Dynamic options inserted here -->
+          </div>
+
+          <!-- Feedback Box & Next Button -->
+          <div id="quiz-feedback" class="hidden rounded-2xl p-4 text-center font-bold text-sm transition-all mb-4">
+          </div>
+
+          <button id="quiz-next-btn" onclick="nextQuizQuestion()" class="hidden w-full py-3.5 bg-emerald-600 text-white rounded-2xl font-bold hover:bg-emerald-700 transition-all shadow-md shadow-emerald-200">
+            Next Question <i class="fa-solid fa-arrow-right ml-2"></i>
+          </button>
+        </div>
+      </section>
+
+      <!-- MODE 3: FILL IN THE BLANKS (USED TO) -->
+      <section id="mode-blanks" class="mode-content hidden flex-1 flex flex-col max-w-xl mx-auto w-full">
+        <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-md flex-1 flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-center mb-4">
+              <span class="px-3 py-1 bg-indigo-100 text-indigo-700 text-xs font-bold rounded-full uppercase">Grammar Practice</span>
+              <span id="blank-index" class="text-xs font-bold text-slate-400">Question 1 of 6</span>
+            </div>
+
+            <h3 class="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-2">Complete the sentence using the correct form:</h3>
+            <p id="blank-sentence" class="text-xl sm:text-2xl font-extrabold text-slate-800 leading-relaxed mb-6">
+              When I was young, I <span class="text-emerald-600 border-b-2 border-emerald-500 px-2">_______</span> (play) football.
+            </p>
+
+            <p id="blank-translation" class="text-sm text-slate-500 italic mb-6">
+              "Quan era jove, jo solia jugar a futbol."
+            </p>
+
+            <!-- Choice Options -->
+            <div id="blank-options" class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
+              <!-- Options injected here -->
+            </div>
+          </div>
+
+          <!-- Feedback -->
+          <div>
+            <div id="blank-feedback" class="hidden rounded-2xl p-4 text-center font-bold text-sm mb-4"></div>
+            <button id="blank-next-btn" onclick="nextBlankQuestion()" class="hidden w-full py-3.5 bg-indigo-600 text-white rounded-2xl font-bold hover:bg-indigo-700 transition-all shadow-md shadow-indigo-200">
+              Continue <i class="fa-solid fa-arrow-right ml-2"></i>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- MODE 4: MATCHING GAME -->
+      <section id="mode-matching" class="mode-content hidden flex-1 flex flex-col">
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 mb-6 flex flex-wrap items-center justify-between gap-3 shadow-sm">
+          <div class="flex items-center gap-4">
+            <div class="flex items-center gap-2">
+              <i class="fa-solid fa-stopwatch text-amber-500 text-lg"></i>
+              <span class="text-xs font-bold text-slate-400 uppercase">Time:</span>
+              <span id="match-timer" class="font-extrabold text-slate-800 text-lg">00:00</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <i class="fa-solid fa-check-double text-emerald-500 text-lg"></i>
+              <span class="text-xs font-bold text-slate-400 uppercase">Matched:</span>
+              <span id="match-score-text" class="font-extrabold text-slate-800 text-lg">0 / 6</span>
+            </div>
+          </div>
+          <button onclick="startMatchingGame()" class="px-4 py-2 bg-amber-500 text-white text-xs font-bold rounded-xl hover:bg-amber-600 transition-all shadow-md shadow-amber-200 active:scale-95 flex items-center gap-1.5">
+            <i class="fa-solid fa-rotate-right"></i> Restart Game
+          </button>
+        </div>
+
+        <div id="matching-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4 flex-1">
+          <!-- Matching Cards will be dynamically injected here -->
+        </div>
+      </section>
+
+      <!-- MODE 6: WORD DESCRIPTIONS (NEW) -->
+      <section id="mode-descriptions" class="mode-content hidden flex-1 flex flex-col max-w-xl mx-auto w-full">
+        <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-md flex-1 flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-center mb-4">
+              <span id="desc-category-tag" class="px-3 py-1 bg-purple-100 text-purple-700 text-xs font-bold rounded-full uppercase tracking-wider">Word Definitions</span>
+              <span id="desc-progress-text" class="text-xs font-bold text-slate-400">1 / 10</span>
+            </div>
+
+            <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Read the description and choose the correct word:</h3>
+            
+            <div class="bg-purple-50 border border-purple-200 rounded-2xl p-5 mb-4 text-center">
+              <i class="fa-solid fa-quote-left text-purple-300 text-2xl mb-2 block"></i>
+              <p id="desc-text" class="text-lg sm:text-xl font-extrabold text-purple-900 leading-snug">
+                "A person who works at a hospital and takes care of sick or injured people."
+              </p>
+            </div>
+
+            <p id="desc-translation" class="text-xs text-slate-500 italic mb-6 text-center">
+              (Una persona que treballa a l'hospital i té cura dels malalts.)
+            </p>
+
+            <!-- 3 Multiple Choice Options -->
+            <div id="desc-options" class="grid grid-cols-1 gap-3 mb-4">
+              <!-- Options injected dynamically -->
+            </div>
+          </div>
+
+          <!-- Feedback & Next Button -->
+          <div>
+            <div id="desc-feedback" class="hidden rounded-2xl p-4 text-center font-bold text-sm mb-4"></div>
+            <button id="desc-next-btn" onclick="nextDescQuestion()" class="hidden w-full py-3.5 bg-purple-600 text-white rounded-2xl font-bold hover:bg-purple-700 transition-all shadow-md shadow-purple-200">
+              Next Definition <i class="fa-solid fa-arrow-right ml-2"></i>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- MODE 5: SENTENCE VOCABULARY QUIZ (LAST TAB) -->
+      <section id="mode-sentence-vocab" class="mode-content hidden flex-1 flex flex-col max-w-xl mx-auto w-full">
+  <script>
+    /* ===================================================
+       DATA STRUCTURES (FROM THE NOTEBOOK IMAGE)
+       =================================================== */
+    const JOBS_DATA = [
+      { english: "business person", catalan: "persona de negocis" },
+      { english: "cleaner", catalan: "netejador/a" },
+      { english: "computer programmer", catalan: "programador/a informàtic/a" },
+      { english: "driver", catalan: "conductor/a" },
+      { english: "firefighter", catalan: "bomber/a" },
+      { english: "mechanic", catalan: "mecànic/a" },
+      { english: "musician", catalan: "músic/a" },
+      { english: "nurse", catalan: "infermer/a" },
+      { english: "tour guide", catalan: "guia turística" },
+      { english: "waiter", catalan: "cambrer/a (o cuiner/a)" },
+      { english: "game developer", catalan: "desenvolupador/a de videojocs" },
+      { english: "hairdresser", catalan: "perruquer/a" },
+      { english: "IT technician", catalan: "tècnic/a informàtic/a" },
+      { english: "lawyer", catalan: "advocat/da" },
+      { english: "librarian", catalan: "bibliotecari/a" },
+      { english: "photographer", catalan: "fotògraf/a" },
+      { english: "pilot", catalan: "pilot" },
+      { english: "sales person", catalan: "dependent/a" },
+      { english: "singer", catalan: "cantant" },
+      { english: "web designer", catalan: "dissenyador/a de webs" }
+    ];
+
+    const VERBS_DATA = [
+      { english: "compete", catalan: "competir" },
+      { english: "cross", catalan: "trabessar / creuar" },
+      { english: "enjoy", catalan: "gaudir / dificultar" },
+      { english: "fall", catalan: "caure" },
+      { english: "finish", catalan: "acabar" },
+      { english: "hold", catalan: "agafar / sostindre" },
+      { english: "train", catalan: "entrenar-se" },
+      { english: "turn", catalan: "girar" },
+      { english: "hurry", catalan: "afanyar-se" },
+      { english: "lie down", catalan: "estirar-se" },
+      { english: "lose", catalan: "perdre" },
+      { english: "pull", catalan: "estirar de" },
+      { english: "push", catalan: "empenyer" },
+      { english: "rest", catalan: "descansar" },
+      { english: "stand up", catalan: "aixecar-se / mentir-se" },
+      { english: "win", catalan: "guanyar" }
+    ];
+
+    const GRAMMAR_DATA = [
+      { english: "S + used to + verb", catalan: "Rutina del passat (Afirmativa)", extra: "Exemple: I used to play football." },
+      { english: "S + didn't use to + verb", catalan: "Rutina del passat (Negativa)", extra: "Recorda: Sense 'd' a 'use to' amb didn't!" },
+      { english: "Did + S + use to + verb?", catalan: "Rutina del passat (Interrogativa)", extra: "Exemple: Did you use to live here?" }
+    ];
+
+    // Combine all flashcard items
+    let allFlashcards = [
+      ...JOBS_DATA.map(i => ({ ...i, category: "Jobs", catKey: "jobs" })),
+      ...VERBS_DATA.map(i => ({ ...i, category: "Verbs", catKey: "verbs" })),
+      ...GRAMMAR_DATA.map(i => ({ ...i, category: "Grammar", catKey: "grammar" }))
+    ];
+
+    /* ===================================================
+       STATE VARIABLES
+       =================================================== */
+    let currentScore = 0;
+    let currentStreak = 0;
+
+    /* ===================================================
+       SCORE & STREAK HELPERS
+       =================================================== */
+    function addScore(points) {
+      currentScore += points;
+      currentStreak += 1;
+      document.getElementById('score-count').textContent = currentScore;
+      document.getElementById('streak-count').textContent = currentStreak;
+    }
+
+    function resetStreak() {
+      currentStreak = 0;
+      document.getElementById('streak-count').textContent = currentStreak;
+    }
+
+    // Sentence Vocab State
+    const SENTENCE_VOCAB_DATA = [
+      {
+        sentence: "The _____ arrived quickly to put out the fire in the house.",
+        translation: "El bomber/a va arribar ràpidament per apagar el foc a la casa.",
+        options: ["firefighter", "cleaner", "pilot"],
+        answer: "firefighter"
+      },
+      {
+        sentence: "We need to _____ so we don't miss the bus!",
+        translation: "Ens hem d'afanyar per no perdre l'autobús!",
+        options: ["hurry", "lie down", "finish"],
+        answer: "hurry"
+      },
+      {
+        sentence: "My sister is a _____ and she cuts people's hair.",
+        translation: "La meva germana és perruquera i talla el cabell de la gent.",
+        options: ["hairdresser", "lawyer", "musician"],
+        answer: "hairdresser"
+      },
+      {
+        sentence: "Always look both ways before you _____ the street.",
+        translation: "Mira sempre a banda i banda abans de creuar el carrer.",
+        options: ["cross", "fall", "turn"],
+        answer: "cross"
+      },
+      {
+        sentence: "The _____ defended his client during the court trial.",
+        translation: "L'advocat va defensar el seu client durant el judici.",
+        options: ["lawyer", "singer", "waiter"],
+        answer: "lawyer"
+      },
+      {
+        sentence: "I am feeling tired, so I am going to _____ on the bed.",
+        translation: "Em trobo cansat/da, així que em vaig a estirar al llit.",
+        options: ["lie down", "stand up", "hold"],
+        answer: "lie down"
+      },
+      {
+        sentence: "She works as a _____ and builds website applications.",
+        translation: "Ella treballa com a dissenyadora de webs i construeix aplicacions web.",
+        options: ["web designer", "tour guide", "mechanic"],
+        answer: "web designer"
+      },
+      {
+        sentence: "Pull the door to open it, don't _____ it!",
+        translation: "Estira la porta per obrir-la, no l'empényis!",
+        options: ["push", "win", "rest"],
+        answer: "push"
+      },
+      {
+        sentence: "The _____ took care of the patients at the hospital.",
+        translation: "L'infermer/a va tenir cura dels pacients a l'hospital.",
+        options: ["nurse", "pilot", "librarian"],
+        answer: "nurse"
+      },
+      {
+        sentence: "They practice every single day because they want to _____ the match.",
+        translation: "Entrenen cada dia perquè volen guanyar el partit.",
+        options: ["win", "lose", "hold"],
+        answer: "win"
+      }
+    ];
+    let currentSentIdx = 0;
+
+    // Word Descriptions State
+    const WORD_DESCRIPTIONS_DATA = [
+      {
+        description: "A professional who puts out dangerous fires and rescues people from burning buildings.",
+        translation: "Persona professional que apaga focs perillosos i rescata gent d'edificis en flames.",
+        options: ["firefighter", "driver", "mechanic"],
+        answer: "firefighter"
+      },
+      {
+        description: "A person whose job is to wash, cut, or style people's hair.",
+        translation: "Persona la feina de la qual és rentar, tallar o peinar el cabell de la gent.",
+        options: ["hairdresser", "musician", "cleaner"],
+        answer: "hairdresser"
+      },
+      {
+        description: "A person qualified to advise people about the law and represent them in court.",
+        translation: "Persona qualificada per assessorar la gent sobre la llei i representar-los al jutjat.",
+        options: ["lawyer", "IT technician", "librarian"],
+        answer: "lawyer"
+      },
+      {
+        description: "To move faster than usual because there is not much time available.",
+        translation: "Moure's més ràpid del normal perquè no hi ha gaire temps disponible.",
+        options: ["hurry", "rest", "compete"],
+        answer: "hurry"
+      },
+      {
+        description: "To place your body in a flat, horizontal position on a bed or sofa.",
+        translation: "Posar el cos en posició plana i horitzontal sobre un llit o sofà.",
+        options: ["lie down", "stand up", "cross"],
+        answer: "lie down"
+      },
+      {
+        description: "To move from one side of a road, river, or path to the other side.",
+        translation: "Moure's d'un costat d'un camí, carrer o riu a l'altre costat.",
+        options: ["cross", "turn", "fall"],
+        answer: "cross"
+      },
+      {
+        description: "A professional who designs, creates, and maintains websites on the internet.",
+        translation: "Professional que dissenya, crea i manté pàgines web a internet.",
+        options: ["web designer", "computer programmer", "game developer"],
+        answer: "web designer"
+      },
+      {
+        description: "To exert force towards oneself in order to move something closer.",
+        translation: "Exercir força cap a un mateix per tal d'apropar algun objecte.",
+        options: ["pull", "push", "hold"],
+        answer: "pull"
+      },
+      {
+        description: "A person who designs and writes code for software or computer applications.",
+        translation: "Persona que dissenya i escriu codi per a programari o aplicacions d'ordinador.",
+        options: ["computer programmer", "cleaner", "tour guide"],
+        answer: "computer programmer"
+      },
+      {
+        description: "To achieve victory or be successful in a game, race, or competition.",
+        translation: "Aconseguir la victòria o tenir èxit en un joc, cursa o competició.",
+        options: ["win", "lose", "train"],
+        answer: "win"
+      }
+    ];
+    let currentDescIdx = 0;
+
+    // Flashcards State
+    let filteredCards = [...allFlashcards];
+    let currentCardIdx = 0;
+    let isFlipped = false;
+
+    // Quiz State
+    let quizQuestions = [];
+    let currentQuizIdx = 0;
+
+    // Blanks State
+    const BLANKS_DATA = [
+      {
+        sentence: "When I was 10 years old, I _____ (play) tennis every Saturday.",
+        translation: "Quan tenia 10 anys, solia jugar a tennis tots els dissabtes.",
+        options: ["used to play", "didn't use to play", "used play"],
+        answer: "used to play"
+      },
+      {
+        sentence: "She _____ (not / like) vegetables, but now she loves them.",
+        translation: "Ella no solia agradar-li les verdures, però ara li encanten.",
+        options: ["didn't used to like", "didn't use to like", "used to not like"],
+        answer: "didn't use to like"
+      },
+      {
+        sentence: "_____ you _____ (live) in London when you were younger?",
+        translation: "Solies viure a Londres quan eres més jove?",
+        options: ["Did / used to live", "Did / use to live", "Do / use to live"],
+        answer: "Did / use to live"
+      },
+      {
+        sentence: "My uncle _____ (be) a firefighter before he retired.",
+        translation: "El meu avi solia ser bomber abans de jubilar-se.",
+        options: ["used to be", "use to be", "didn't use to be"],
+        answer: "used to be"
+      },
+      {
+        sentence: "We _____ (not / train) on Sundays.",
+        translation: "Nosaltres no solíem entrenar-nos els diumenges.",
+        options: ["didn't use to train", "didn't used to train", "not used to train"],
+        answer: "didn't use to train"
+      },
+      {
+        sentence: "Did he _____ (work) as a computer programmer?",
+        translation: "Solia ell treballar com a programador informàtic?",
+        options: ["use to work", "used to work", "used work"],
+        answer: "use to work"
+      }
+    ];
+    let currentBlankIdx = 0;
+
+    // Matching State
+    let matchCards = [];
+    let selectedMatchCard = null;
+    let matchTimerInterval = null;
+    let matchSeconds = 0;
+
+    /* ===================================================
+       SPEECH SYNTHESIS (AUDIO PRONUNCIATION)
+       =================================================== */
+    function speakWord(isCatalan = false) {
+      if (!('speechSynthesis' in window)) return;
+      window.speechSynthesis.cancel();
+      const currentItem = filteredCards[currentCardIdx];
+      const text = isCatalan ? currentItem.catalan : currentItem.english;
+      const lang = isCatalan ? 'ca-ES' : 'en-US';
+      
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = lang;
+      utterance.rate = 0.9;
+      window.speechSynthesis.speak(utterance);
+    }
+
+    /* ===================================================
+       GENERAL NAVIGATION
+       =================================================== */
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('bg-emerald-600', 'text-white', 'shadow-lg', 'shadow-emerald-200');
+        btn.classList.add('bg-white', 'text-slate-600', 'hover:bg-slate-50', 'border', 'border-slate-200');
+      });
+      const activeBtn = document.getElementById(`tab-${tabId}`);
+      activeBtn.classList.remove('bg-white', 'text-slate-600', 'hover:bg-slate-50', 'border', 'border-slate-200');
+      activeBtn.classList.add('bg-emerald-600', 'text-white', 'shadow-lg', 'shadow-emerald-200');
+
+      document.querySelectorAll('.mode-content').forEach(sec => sec.classList.add('hidden'));
+      document.getElementById(`mode-${tabId}`).classList.remove('hidden');
+
+      if (tabId === 'descriptions') startDescriptionsMode();
+      if (tabId === 'sentence-vocab') startSentenceVocabMode();
+      if (tabId === 'quiz') startQuizMode();
+      if (tabId === 'blanks') startBlanksMode();
+      if (tabId === 'matching') startMatchingGame();
+    }
+
+    /* ===================================================
+       MODE 6: WORD DESCRIPTIONS MODE
+       =================================================== */
+    function startDescriptionsMode() {
+      currentDescIdx = 0;
+      renderDescQuestion();
+    }
+
+    function renderDescQuestion() {
+      const q = WORD_DESCRIPTIONS_DATA[currentDescIdx];
+      document.getElementById('desc-progress-text').textContent = `${currentDescIdx + 1} / ${WORD_DESCRIPTIONS_DATA.length}`;
+      document.getElementById('desc-text').textContent = `"${q.description}"`;
+      document.getElementById('desc-translation').textContent = `(${q.translation})`;
+
+      const optsContainer = document.getElementById('desc-options');
+      optsContainer.innerHTML = '';
+
+      document.getElementById('desc-feedback').classList.add('hidden');
+      document.getElementById('desc-next-btn').classList.add('hidden');
+
+      q.options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = 'w-full text-left p-4 rounded-2xl border-2 border-slate-200 hover:border-purple-500 hover:bg-purple-50 font-bold text-slate-700 transition-all flex justify-between items-center';
+        btn.innerHTML = `<span>${opt}</span> <i class="fa-regular fa-circle text-slate-300"></i>`;
+        btn.onclick = () => checkDescAnswer(btn, opt, q.answer);
+        optsContainer.appendChild(btn);
+      });
+    }
+
+    function checkDescAnswer(selectedBtn, selectedOpt, correctAns) {
+      const container = document.getElementById('desc-options');
+      Array.from(container.children).forEach(b => b.disabled = true);
+
+      const feedback = document.getElementById('desc-feedback');
+      feedback.classList.remove('hidden', 'bg-emerald-100', 'text-emerald-800', 'bg-rose-100', 'text-rose-800');
+
+      if (selectedOpt === correctAns) {
+        selectedBtn.classList.remove('border-slate-200');
+        selectedBtn.classList.add('border-purple-500', 'bg-purple-100', 'text-purple-800');
+        selectedBtn.querySelector('i').className = 'fa-solid fa-circle-check text-purple-600 text-xl';
+
+        feedback.classList.add('bg-emerald-100', 'text-emerald-800');
+        feedback.innerHTML = '<i class="fa-solid fa-circle-check mr-2"></i> Correct! That word matches the definition perfectly (+15 XP)';
+        addScore(15);
+      } else {
+        selectedBtn.classList.remove('border-slate-200');
+        selectedBtn.classList.add('border-rose-500', 'bg-rose-100', 'text-rose-800');
+        selectedBtn.querySelector('i').className = 'fa-solid fa-circle-xmark text-rose-600 text-xl';
+
+        Array.from(container.children).forEach(btn => {
+          if (btn.innerText.includes(correctAns)) {
+            btn.classList.add('border-purple-500', 'bg-purple-50');
+          }
+        });
+
+        feedback.classList.add('bg-rose-100', 'text-rose-800');
+        feedback.innerHTML = `<i class="fa-solid fa-triangle-exclamation mr-2"></i> Incorrect. The word for this description is: <strong>${correctAns}</strong>`;
+        resetStreak();
+      }
+
+      document.getElementById('desc-next-btn').classList.remove('hidden');
+    }
+
+    function nextDescQuestion() {
+      currentDescIdx++;
+      if (currentDescIdx < WORD_DESCRIPTIONS_DATA.length) {
+        renderDescQuestion();
+      } else {
+        document.getElementById('desc-text').textContent = "🎉 Word Descriptions Practice Complete!";
+        document.getElementById('desc-translation').textContent = "Great job matching all the definitions to their vocabulary words!";
+        document.getElementById('desc-options').innerHTML = '';
+        document.getElementById('desc-feedback').classList.add('hidden');
+        document.getElementById('desc-next-btn').textContent = "Restart Descriptions Practice";
+        document.getElementById('desc-next-btn').onclick = startDescriptionsMode;
+      }
+    }
+
+    /* ===================================================
+       MODE 5: SENTENCE VOCABULARY MODE
+       =================================================== */
+    function startSentenceVocabMode() {
+      currentSentIdx = 0;
+      renderSentQuestion();
+    }
+
+    function renderSentQuestion() {
+      const q = SENTENCE_VOCAB_DATA[currentSentIdx];
+      document.getElementById('sent-progress-text').textContent = `${currentSentIdx + 1} / ${SENTENCE_VOCAB_DATA.length}`;
+      document.getElementById('sent-sentence').innerHTML = q.sentence.replace('_____', '<span class="text-teal-600 border-b-2 border-teal-500 px-2">_______</span>');
+      document.getElementById('sent-translation').textContent = `"${q.translation}"`;
+
+      const optsContainer = document.getElementById('sent-options');
+      optsContainer.innerHTML = '';
+
+      document.getElementById('sent-feedback').classList.add('hidden');
+      document.getElementById('sent-next-btn').classList.add('hidden');
+
+      q.options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = 'w-full text-left p-4 rounded-2xl border-2 border-slate-200 hover:border-teal-500 hover:bg-teal-50 font-bold text-slate-700 transition-all flex justify-between items-center';
+        btn.innerHTML = `<span>${opt}</span> <i class="fa-regular fa-circle text-slate-300"></i>`;
+        btn.onclick = () => checkSentAnswer(btn, opt, q.answer);
+        optsContainer.appendChild(btn);
+      });
+    }
+
+    function checkSentAnswer(selectedBtn, selectedOpt, correctAns) {
+      const container = document.getElementById('sent-options');
+      Array.from(container.children).forEach(b => b.disabled = true);
+
+      const feedback = document.getElementById('sent-feedback');
+      feedback.classList.remove('hidden', 'bg-emerald-100', 'text-emerald-800', 'bg-rose-100', 'text-rose-800');
+
+      if (selectedOpt === correctAns) {
+        selectedBtn.classList.remove('border-slate-200');
+        selectedBtn.classList.add('border-teal-500', 'bg-teal-100', 'text-teal-800');
+        selectedBtn.querySelector('i').className = 'fa-solid fa-circle-check text-teal-600 text-xl';
+
+        feedback.classList.add('bg-emerald-100', 'text-emerald-800');
+        feedback.innerHTML = '<i class="fa-solid fa-circle-check mr-2"></i> Excellent! Right word for the context (+15 XP)';
+        addScore(15);
+      } else {
+        selectedBtn.classList.remove('border-slate-200');
+        selectedBtn.classList.add('border-rose-500', 'bg-rose-100', 'text-rose-800');
+        selectedBtn.querySelector('i').className = 'fa-solid fa-circle-xmark text-rose-600 text-xl';
+
+        Array.from(container.children).forEach(btn => {
+          if (btn.innerText.includes(correctAns)) {
+            btn.classList.add('border-teal-500', 'bg-teal-50');
+          }
+        });
+
+        feedback.classList.add('bg-rose-100', 'text-rose-800');
+        feedback.innerHTML = `<i class="fa-solid fa-triangle-exclamation mr-2"></i> Incorrect. The correct answer is: <strong>${correctAns}</strong>`;
+        resetStreak();
+      }
+
+      document.getElementById('sent-next-btn').classList.remove('hidden');
+    }
+
+    function nextSentQuestion() {
+      currentSentIdx++;
+      if (currentSentIdx < SENTENCE_VOCAB_DATA.length) {
+        renderSentQuestion();
+      } else {
+        document.getElementById('sent-sentence').textContent = "🎉 Sentence Practice Complete!";
+        document.getElementById('sent-translation').textContent = "Great job completing all vocabulary context sentences!";
+        document.getElementById('sent-options').innerHTML = '';
+        document.getElementById('sent-feedback').classList.add('hidden');
+        document.getElementById('sent-next-btn').textContent = "Restart Sentence Practice";
+        document.getElementById('sent-next-btn').onclick = startSentenceVocabMode;
+      }
+    }
+
+    /* ===================================================
+       MODE 1: FLASHCARDS
+       =================================================== */
+    function renderFlashcard() {
+      const item = filteredCards[currentCardIdx];
+      isFlipped = false;
+      const inner = document.getElementById('flashcard-inner');
+      inner.classList.remove('rotate-y-180');
+
+      document.getElementById('card-index').textContent = currentCardIdx + 1;
+      document.getElementById('card-total').textContent = filteredCards.length;
+      document.getElementById('card-category-tag').textContent = item.category;
+      document.getElementById('card-english').textContent = item.english;
+      document.getElementById('card-catalan').textContent = item.catalan;
+      document.getElementById('card-extra').textContent = item.extra || '';
+    }
+
+    function flipCard() {
+      isFlipped = !isFlipped;
+      const inner = document.getElementById('flashcard-inner');
+      if (isFlipped) {
+        inner.classList.add('rotate-y-180');
+      } else {
+        inner.classList.remove('rotate-y-180');
+      }
+    }
+
+    function nextCard() {
+      currentCardIdx = (currentCardIdx + 1) % filteredCards.length;
+      renderFlashcard();
+    }
+
+    function prevCard() {
+      currentCardIdx = (currentCardIdx - 1 + filteredCards.length) % filteredCards.length;
+      renderFlashcard();
+    }
+
+    function filterFlashcards() {
+      const cat = document.getElementById('category-filter').value;
+      if (cat === 'all') {
+        filteredCards = [...allFlashcards];
+      } else {
+        filteredCards = allFlashcards.filter(c => c.catKey === cat);
+      }
+      currentCardIdx = 0;
+      renderFlashcard();
+    }
+
+    /* ===================================================
+       MODE 2: QUIZ MODE
+       =================================================== */
+    function startQuizMode() {
+      quizQuestions = [];
+      const pool = [...JOBS_DATA, ...VERBS_DATA];
+      
+      const shuffled = pool.sort(() => 0.5 - Math.random()).slice(0, 8);
+      
+      shuffled.forEach((item, index) => {
+        // Alternate direction: even indices Catalan -> English, odd indices English -> Catalan
+        const isCatalanToEnglish = index % 2 === 0;
+
+        if (isCatalanToEnglish) {
+          const distractors = pool
+            .filter(p => p.english !== item.english)
+            .sort(() => 0.5 - Math.random())
+            .slice(0, 3)
+            .map(d => d.english);
+
+          const options = [item.english, ...distractors].sort(() => 0.5 - Math.random());
+          quizQuestions.push({
+            type: "translation",
+            question: `What is the English word for "${item.catalan}"?`,
+            answer: item.english,
+            options: options,
+            category: "Catalan → English"
+          });
+        } else {
+          const distractors = pool
+            .filter(p => p.catalan !== item.catalan)
+            .sort(() => 0.5 - Math.random())
+            .slice(0, 3)
+            .map(d => d.catalan);
+
+          const options = [item.catalan, ...distractors].sort(() => 0.5 - Math.random());
+          quizQuestions.push({
+            type: "translation",
+            question: `What is the Catalan translation of "${item.english}"?`,
+            answer: item.catalan,
+            options: options,
+            category: "English → Catalan"
+          });
+        }
+      });
+
+      // Add 2 grammar questions
+      quizQuestions.push({
+        type: "grammar",
+        question: "Which structure is used for positive past habits?",
+        answer: "S + used to + verb",
+        options: ["S + used to + verb", "S + didn't use to + verb", "Did + S + use to + verb?"],
+        category: "Grammar"
+      });
+
+      quizQuestions.push({
+        type: "grammar",
+        question: "Which negative sentence is grammatically correct?",
+        answer: "I didn't use to play",
+        options: ["I didn't use to play", "I didn't used to play", "I not used to play"],
+        category: "Grammar"
+      });
+
+      currentQuizIdx = 0;
+      renderQuizQuestion();
+    }
+
+    function renderQuizQuestion() {
+      const q = quizQuestions[currentQuizIdx];
+      document.getElementById('quiz-progress-text').textContent = `${currentQuizIdx + 1} / ${quizQuestions.length}`;
+      document.getElementById('quiz-progress-bar').style.width = `${((currentQuizIdx + 1) / quizQuestions.length) * 100}%`;
+      
+      document.getElementById('quiz-category-tag').textContent = q.category;
+      document.getElementById('quiz-question').textContent = q.question;
+
+      const optsContainer = document.getElementById('quiz-options');
+      optsContainer.innerHTML = '';
+
+      document.getElementById('quiz-feedback').classList.add('hidden');
+      document.getElementById('quiz-next-btn').classList.add('hidden');
+
+      q.options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = 'w-full text-left p-4 rounded-2xl border-2 border-slate-200 hover:border-emerald-500 hover:bg-emerald-50 font-semibold text-slate-700 transition-all flex justify-between items-center';
+        btn.innerHTML = `<span>${opt}</span> <i class="fa-regular fa-circle text-slate-300"></i>`;
+        btn.onclick = () => checkQuizAnswer(btn, opt, q.answer);
+        optsContainer.appendChild(btn);
+      });
+    }
+
+    function checkQuizAnswer(selectedBtn, selectedOpt, correctAns) {
+      const allBtns = document.getElementById('quiz-options').children;
+      for (let btn of allBtns) {
+        btn.disabled = true;
+      }
+
+      const feedback = document.getElementById('quiz-feedback');
+      feedback.classList.remove('hidden', 'bg-emerald-100', 'text-emerald-800', 'bg-rose-100', 'text-rose-800');
+
+      if (selectedOpt === correctAns) {
+        selectedBtn.classList.remove('border-slate-200', 'hover:border-emerald-500');
+        selectedBtn.classList.add('border-emerald-500', 'bg-emerald-100', 'text-emerald-800');
+        selectedBtn.querySelector('i').className = 'fa-solid fa-circle-check text-emerald-600 text-xl';
+        
+        feedback.classList.add('bg-emerald-100', 'text-emerald-800');
+        feedback.innerHTML = '<i class="fa-solid fa-circle-check mr-2"></i> Well done! Correct answer (+10 XP)';
+        addScore(10);
+      } else {
+        selectedBtn.classList.remove('border-slate-200');
+        selectedBtn.classList.add('border-rose-500', 'bg-rose-100', 'text-rose-800');
+        selectedBtn.querySelector('i').className = 'fa-solid fa-circle-xmark text-rose-600 text-xl';
+
+        for (let btn of allBtns) {
+          if (btn.innerText.includes(correctAns)) {
+            btn.classList.add('border-emerald-500', 'bg-emerald-50');
+          }
+        }
+
+        feedback.classList.add('bg-rose-100', 'text-rose-800');
+        feedback.innerHTML = `<i class="fa-solid fa-triangle-exclamation mr-2"></i> Incorrect. The correct answer is: <strong>${correctAns}</strong>`;
+        resetStreak();
+      }
+
+      document.getElementById('quiz-next-btn').classList.remove('hidden');
+    }
+
+    function nextQuizQuestion() {
+      currentQuizIdx++;
+      if (currentQuizIdx < quizQuestions.length) {
+        renderQuizQuestion();
+      } else {
+        document.getElementById('quiz-question').textContent = "🎉 Congratulations! Quiz Completed!";
+        document.getElementById('quiz-options').innerHTML = `<p class="text-center font-bold text-slate-600 py-6">You earned experience points in this attempt!</p>`;
+        document.getElementById('quiz-feedback').classList.add('hidden');
+        document.getElementById('quiz-next-btn').textContent = "Restart Quiz";
+        document.getElementById('quiz-next-btn').onclick = startQuizMode;
+      }
+    }
+
+    /* ===================================================
+       MODE 3: FILL IN THE BLANKS
+       =================================================== */
+    function startBlanksMode() {
+      currentBlankIdx = 0;
+      renderBlankQuestion();
+    }
+
+    function renderBlankQuestion() {
+      const item = BLANKS_DATA[currentBlankIdx];
+      document.getElementById('blank-index').textContent = `Question ${currentBlankIdx + 1} of ${BLANKS_DATA.length}`;
+      document.getElementById('blank-sentence').innerHTML = item.sentence.replace('_____', '<span class="text-indigo-600 border-b-2 border-indigo-500 px-2">_______</span>');
+      document.getElementById('blank-translation').textContent = `"${item.translation}"`;
+
+      const optsContainer = document.getElementById('blank-options');
+      optsContainer.innerHTML = '';
+      document.getElementById('blank-feedback').classList.add('hidden');
+      document.getElementById('blank-next-btn').classList.add('hidden');
+
+      item.options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = 'w-full p-4 rounded-2xl border-2 border-slate-200 hover:border-indigo-500 hover:bg-indigo-50 font-bold text-slate-700 transition-all text-center';
+        btn.textContent = opt;
+        btn.onclick = () => checkBlankAnswer(btn, opt, item.answer);
+        optsContainer.appendChild(btn);
+      });
+    }
+
+    function checkBlankAnswer(selectedBtn, selectedOpt, correctAns) {
+      const container = document.getElementById('blank-options');
+      Array.from(container.children).forEach(b => b.disabled = true);
+
+      const feedback = document.getElementById('blank-feedback');
+      feedback.classList.remove('hidden', 'bg-emerald-100', 'text-emerald-800', 'bg-rose-100', 'text-rose-800');
+
+      if (selectedOpt === correctAns) {
+        selectedBtn.classList.add('border-emerald-500', 'bg-emerald-100', 'text-emerald-800');
+        feedback.classList.add('bg-emerald-100', 'text-emerald-800');
+        feedback.innerHTML = '<i class="fa-solid fa-check mr-2"></i> Excellent! Correct grammar (+15 XP)';
+        addScore(15);
+      } else {
+        selectedBtn.classList.add('border-rose-500', 'bg-rose-100', 'text-rose-800');
+        feedback.classList.add('bg-rose-100', 'text-rose-800');
+        feedback.innerHTML = `<i class="fa-solid fa-xmark mr-2"></i> Incorrect. The correct form is: <strong>${correctAns}</strong>`;
+        resetStreak();
+      }
+
+      document.getElementById('blank-next-btn').classList.remove('hidden');
+    }
+
+    function nextBlankQuestion() {
+      currentBlankIdx++;
+      if (currentBlankIdx < BLANKS_DATA.length) {
+        renderBlankQuestion();
+      } else {
+        document.getElementById('blank-sentence').textContent = "⭐ Grammar Practice Complete!";
+        document.getElementById('blank-translation').textContent = "You have mastered the 'Used to' structures!";
+        document.getElementById('blank-options').innerHTML = '';
+        document.getElementById('blank-feedback').classList.add('hidden');
+        document.getElementById('blank-next-btn').textContent = "Practice Again";
+        document.getElementById('blank-next-btn').onclick = startBlanksMode;
+      }
+    }
+
+    /* ===================================================
+       MODE 4: MATCHING GAME (REFACTORED & REDESIGNED)
+       =================================================== */
+    function startMatchingGame() {
+      if (matchTimerInterval) clearInterval(matchTimerInterval);
+      matchSeconds = 0;
+      selectedMatchCard = null;
+
+      document.getElementById('match-timer').textContent = "00:00";
+      document.getElementById('match-score-text').textContent = "0 / 6";
+
+      // Pick 6 random vocabulary items (Jobs or Verbs)
+      const pool = [...JOBS_DATA, ...VERBS_DATA].sort(() => 0.5 - Math.random()).slice(0, 6);
+      
+      let cards = [];
+      pool.forEach((item, index) => {
+        cards.push({ id: index, text: item.english, lang: 'EN', pairId: index });
+        cards.push({ id: index, text: item.catalan, lang: 'CAT', pairId: index });
+      });
+
+      // Shuffle cards
+      matchCards = cards.sort(() => 0.5 - Math.random());
+
+      const grid = document.getElementById('matching-grid');
+      grid.innerHTML = '';
+
+      matchCards.forEach((card, idx) => {
+        const cardBtn = document.createElement('button');
+        cardBtn.className = 'match-card-btn bg-white border-2 border-slate-200 hover:border-amber-400 rounded-2xl p-4 sm:p-5 text-slate-700 font-bold text-sm sm:text-base flex items-center justify-center text-center shadow-sm hover:shadow-md transition-all transform active:scale-95 min-h-[90px] select-none';
+        cardBtn.dataset.index = idx;
+        cardBtn.dataset.pairId = card.pairId;
+        cardBtn.dataset.lang = card.lang;
+
+        cardBtn.innerHTML = `
+          <div class="flex flex-col items-center gap-1">
+            <span class="text-xs font-semibold px-2 py-0.5 rounded-full ${card.lang === 'EN' ? 'bg-indigo-50 text-indigo-600' : 'bg-emerald-50 text-emerald-600'}">${card.lang === 'EN' ? 'English' : 'Catalan'}</span>
+            <span class="font-bold leading-tight">${card.text}</span>
+          </div>
+        `;
+
+        cardBtn.onclick = () => handleCardSelection(cardBtn, card);
+        grid.appendChild(cardBtn);
+      });
+
+      // Start timer
+      matchTimerInterval = setInterval(() => {
+        matchSeconds++;
+        const mins = String(Math.floor(matchSeconds / 60)).padStart(2, '0');
+        const secs = String(matchSeconds % 60).padStart(2, '0');
+        document.getElementById('match-timer').textContent = `${mins}:${secs}`;
+      }, 1000);
+    }
+
+    let matchedPairsCount = 0;
+
+    function handleCardSelection(btn, card) {
+      if (btn.classList.contains('matched') || btn.classList.contains('selected')) return;
+
+      if (!selectedMatchCard) {
+        // Select first card
+        selectedMatchCard = { btn, card };
+        btn.classList.add('selected', 'border-amber-500', 'bg-amber-50', 'text-amber-800', 'scale-105');
+      } else {
+        const prev = selectedMatchCard;
+        selectedMatchCard = null;
+
+        // Check if cards match (same pairId but different language card)
+        if (prev.card.pairId === card.pairId && prev.card.lang !== card.lang) {
+          // Correct match!
+          prev.btn.classList.remove('selected', 'border-amber-500', 'bg-amber-50', 'text-amber-800', 'scale-105');
+          btn.classList.add('scale-105');
+
+          prev.btn.classList.add('matched', 'border-emerald-500', 'bg-emerald-100', 'text-emerald-800', 'opacity-60');
+          btn.classList.add('matched', 'border-emerald-500', 'bg-emerald-100', 'text-emerald-800', 'opacity-60');
+
+          prev.btn.disabled = true;
+          btn.disabled = true;
+
+          matchedPairsCount++;
+          document.getElementById('match-score-text').textContent = `${matchedPairsCount} / 6`;
+          addScore(15);
+
+          // Speak English word upon successful match
+          const engText = card.lang === 'EN' ? card.text : prev.card.text;
+          if ('speechSynthesis' in window) {
+            const utterance = new SpeechSynthesisUtterance(engText);
+            utterance.lang = 'en-US';
+            window.speechSynthesis.speak(utterance);
+          }
+
+          if (matchedPairsCount === 6) {
+            clearInterval(matchTimerInterval);
+            setTimeout(() => {
+              alert(`🎉 Outstanding! You matched all pairs in ${document.getElementById('match-timer').textContent}! (+50 XP Bonus)`);
+              addScore(50);
+              matchedPairsCount = 0;
+            }, 300);
+          }
+        } else {
+          // Wrong match!
+          btn.classList.add('border-rose-500', 'bg-rose-100', 'text-rose-800');
+          prev.btn.classList.add('border-rose-500', 'bg-rose-100', 'text-rose-800');
+
+          setTimeout(() => {
+            prev.btn.classList.remove('selected', 'border-amber-500', 'bg-amber-50', 'text-amber-800', 'border-rose-500', 'bg-rose-100', 'text-rose-800', 'scale-105');
+            btn.classList.remove('border-rose-500', 'bg-rose-100', 'text-rose-800');
+          }, 600);
+
+          resetStreak();
+        }
+      }
+    }
+  </script>
+</body>
+</html>
